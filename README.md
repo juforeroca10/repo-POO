@@ -3,4 +3,4 @@ Este repositorio reúne los ejercicios y retos que he desarrollado durante mis c
 Este es mi primer repositorio, y lo estoy utilizando para aprender a documentar, organizar y compartir mi trabajo de forma profesional; seguiré actualizándolo con nuevos retos a medida que avance en mi aprendizaje.
 # Reto 1
 # 1.1
-[Función que realiza operaciones básicas](Reto1_1.py)
+[Función que realiza operaciones básicas](Reto1/Reto1_1.py)
