@@ -1,6 +1,10 @@
-# 1.1
+# Introducción
+Este es mi primer repositorio, y lo estoy utilizando para aprender a documentar, organizar y compartir mi trabajo de forma profesional. Reúne los ejercicios y retos que he desarrollado durante mis clases de Programación Orientada a Objetos (POO) con el profesor Felipe y seguiré actualizándolo con nuevos retos a medida que avance en mi aprendizaje.
+# Reto 1
+En el reto 1 nos piden desarrollar una serie de ejercicios prácticos en Python, cada uno como un programa independiente. Los ejercicios incluyen operaciones matemáticas básicas entre dos números, verificación de palíndromos sin usar slicing, filtrado de números primos desde una lista, cálculo de la mayor suma entre elementos consecutivos, y detección de palabras que comparten los mismos caracteres. La idea es aplicar funciones, condicionales y lógica básica para resolver cada problema.
+## 1.1
 Crear una función que realice operaciones básicas (suma, resta, multiplicación, división) entre dos números, según la elección del usuario, la forma de entrada de la función será los dos operandos y el caracter usado para la operación. entrada: `(1,2,"+")`, salida `(3)`.
-## Codigo
+### Codigo
 ```python
 print("Bienvenido, este programa te ayuda a hacer operaciones basicas.")
 def operar(num_1, num_2, operador):
@@ -26,11 +30,11 @@ print(resultado)
 
 ```
 [Función que realiza operaciones básicas](Reto1/Reto1_1.py)
-## ¿Cómo llegué al resultado
-En este punto nos piden que realicemos una función donde el usuario introduzca sus propios datos, es decir, `num_1`, `num__2` y `operador`; para esto lo primero que hice fue definir la función `def` con sus 3 variables y para que se cumpla alguna de las tres operaciones hacer unas condicionales `if`, `elif` y `else`, que sirven para comparar y ver que operación se quiere realizar, y si se escribe un caracter diferente a los pedidos se da el error de que no ingreso uno válido. Después de esto, coloque un `input` para obtener los tres datos y un `print` para que muestre la operación al final.
-# 1.2
+### ¿Cómo llegué al resultado
+En este punto nos piden que realicemos una función donde el usuario introduzca sus propios datos, es decir, `num_1`, `num__2` y `operador`; para esto lo primero que hice fue definir la función `def operar` con sus 3 variables y para que se cumpla alguna de las tres operaciones hacer unas condicionales `if`, `elif` y `else`, que sirven para comparar y ver que operación se quiere realizar, y si se escribe un caracter diferente a los pedidos se da el error de que no ingreso uno válido. Después de esto, coloque un `input` para obtener los tres datos y un `print` para que muestre la operación al final.
+## 1.2
 Realice una función que permita validar si una palabra es un palíndromo. Condición: No se vale hacer slicing para invertir la palabra y verificar que sea igual a la original.
-## Codigo
+### Codigo
 ```python
 print("Bienvenido, este programa sirve para conocer si la palabra que ingresas es un palindromo.")
 def es_palindromo(palabra):
@@ -53,10 +57,11 @@ else:
     print("No es un palindromo.")
 ```
 [Función que valida si es un palíndromo](Reto1/Reto1_2.py)
-## ¿Cómo llegué al resultado?
-# 1.3
+### ¿Cómo llegué al resultado?
+En este punto nos piden hacer una función que permita revisar si la palabra que introduzca el usuario es un palíndromo o no, para empezar ni siquiera sabia que era slicing así que no me parecio algo del otro mundo no usarlo, empece definiendo la función `def es_palindromo` dentro de esta función hay una variable en `str` llamada `palabra`, también dos `int` que nos ayudarán luego para el ciclo que use, y por último una variable en `bool` que esta en `True`, luego de esto dos variables en `int` y una función llamada `len` que permite ver cuántos elementos hay en una secuencia. Luego de esto el ciclo `while` acompañado por un `if` nos permite recorrer el string por cada una de sus letras para asi corroborar si son iguales o no. Si son iguales la variable en `bool` sigue en `True` y nos muestra que la palabra que ingreso el usuario si es un palíndromo, y si el ciclo detecta que la palabra no es igual en alguna letra pues la variable `palabra` se convierte en `False` y nos saca del ciclo para dar el mensaje de que no es palíndromo. (Si se escribe la primera letra en mayuscula no lo toma como palíndromo).
+## 1.3
 Escribir una función que reciba una lista de números y devuelva solo aquellos que son primos. La función debe recibir una lista de enteros y retornar solo aquellos que sean primos.
-## Codigo
+### Codigo
 ```python
 print("Bienvenido, este programa sirve para conocer si el numero que ingresas es un numero primo.")
 numeros: str 
@@ -87,10 +92,11 @@ primos = filtrar_primos(lista_numeros)
 
 print("Los numeros primos son:", primos)
 ```
-## ¿Cómo llegué al resultado?
-# 1.4
+[Función que filtra los números primos](Reto1/Reto1_3.py)
+### ¿Cómo llegué al resultado?
+## 1.4
 Escribir una función que reciba una lista de números enteros y retorne la mayor suma entre dos elementos consecutivos.
-## Codigo
+### Codigo
 ```python
 print("Bienvenido, este programa sirve para hallar la mayor suma entre dos elementos consecutivos")
 numeros: str 
@@ -114,10 +120,11 @@ mayor_suma = mayor_suma_consecutiva(lista_numeros)
 
 print("La mayor suma entre dos elementos consecutivos es:", mayor_suma)
 ```
-## ¿Cómo llegué al resultado?
-# 1.5
+[Función que realiza la mayor suma](Reto1/Reto1_4.py)
+### ¿Cómo llegué al resultado?
+## 1.5
 Escribir una función que reciba una lista de string y retorne unicamente aquellos elementos que tengan los mismos caracteres. e.g. entrada: `["amor", "roma", "perro"]`, salida `["amor", "roma"]`
-## Codigo
+### Codigo
 ```python
 print("Bienvenido, este programa te ayuda a conocer palabras anagramas.")
 palabras: str
@@ -148,5 +155,8 @@ resultado = filtrar_anagramas(lista_palabras)
 
 print("Las palabras con los mismos caracteres:", resultado)
 ```
+[Función que muestra los anagramas](Reto1/Reto1_5.py)
 ### ¿Cómo llegué al resultado?
 # Reto 2
+Elija un problema de la vida real (sistema de gestión de biblioteca, negocio de compra-venta, automóvil, etc) que se pueda modelar a través de objetos y clases. Plantee las relaciones de clases, composiciones, propiedades y comportamientos del sistema en uno mas diagramas tipo UML.
+### Solución
