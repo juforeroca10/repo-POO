@@ -162,3 +162,6 @@ print("Las palabras con los mismos caracteres:", resultado)
 Elija un problema de la vida real (sistema de gestión de biblioteca, negocio de compra-venta, automóvil, etc) que se pueda modelar a través de objetos y clases. Plantee las relaciones de clases, composiciones, propiedades y comportamientos del sistema en uno mas diagramas tipo UML.
 ### Solución
 ![Diagrama UML sobre un sistema de reservas de vuelo](Reto_2.drawio.png)
+ **Descripción**
+- Las flechas vacias, significan que Empleado y Pasajero son una herencia de Persona.
+- Los rombos, significan que a los que estan apuntando es una composición.
