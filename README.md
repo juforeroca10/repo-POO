@@ -160,3 +160,4 @@ print("Las palabras con los mismos caracteres:", resultado)
 # Reto 2
 Elija un problema de la vida real (sistema de gestión de biblioteca, negocio de compra-venta, automóvil, etc) que se pueda modelar a través de objetos y clases. Plantee las relaciones de clases, composiciones, propiedades y comportamientos del sistema en uno mas diagramas tipo UML.
 ### Solución
+![Diagrama UML sobre un sistema de reservas de vuelo](Reto_2.drawio.png)
