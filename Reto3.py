@@ -128,6 +128,32 @@ class Combo(MenuItem):
         return ", ".join(self.included_items)
 
 
+class Order:
+    def __init__(self, date: str, status: str) -> None:
+        self.items: list[MenuItem] = []
+        self.date = date
+        self.status = status
+
+    def add_item(self, item: MenuItem) -> None:
+        self.items.append(item)
+
+    def calculate_total(self) -> float:
+        subtotal = sum(item.get_total_price() for item in self.items)
+        if len(self.items) >= 3:
+            discount = subtotal * 0.10
+            return subtotal - discount
+        return subtotal
+
+    def show_summary(self) -> None:
+        print(f"\n--- ORDER SUMMARY ---")
+        print(f"Date: {self.date}")
+        print(f"Status: {self.status}")
+        print("Items:")
+        for item in self.items:
+            print(f"- {item.show_info()}")
+        print(f"Total: ${self.calculate_total():,.2f} COP")
+
+
 
 # Drinks
 drink1 = Drink("Mango Juice", 8500.0, 1.0, "medium", True, False, False)
@@ -177,3 +203,14 @@ for item in [drink1, drink2, drink3,
              soup1, soup2, soup3,
              combo1, combo2, combo3]:
     print(item.show_info())
+
+# Create an order
+order1 = Order("2025-10-01", "Pending")
+
+# Add items from your menu
+order1.add_item(main1)
+order1.add_item(drink1)
+order1.add_item(dessert2)
+
+# Show summary
+order1.show_summary()
