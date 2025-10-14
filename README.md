@@ -1,3 +1,9 @@
+# Tabla de Contenidos
+- [Introducción](#introducción)
+- [Reto 1](#reto-1)
+- [Reto 2](#reto-2)
+- [Reto 3](#reto-3)
+- [Reto 4](#reto-4) 
 # Introducción
 Este es mi primer repositorio, y lo estoy utilizando para aprender a documentar, organizar y compartir mi trabajo de forma profesional. Reúne los ejercicios y retos que he desarrollado durante mis clases de Programación Orientada a Objetos (POO) con el profesor Felipe y seguiré actualizándolo con nuevos retos a medida que avance en mi aprendizaje.
 # Reto 1
@@ -169,6 +175,31 @@ Elija un problema de la vida real (sistema de gestión de biblioteca, negocio de
 - Los rombos, significan que a los que estan apuntando es una composición.
 # Reto 3
 1. Create a repo with the class exercise.
+   **Ejercicio:**
+      1. Create class Line.
+```mermaid
+classDiagram
+    class Line {
+      +float length
+      +float slope
+      +Point start
+      +Point end
+      +__init__(self, start, end)
+      +compute_length()
+      +compute_slope()
+      +compute_horizontal_cross()
+      +compute_vertical_cross()
+    }
+```
+   - *length*, *slope*, start, end: Instance attributes, two of them being points (so a line is composed at least of two points).
+   -  compute_length(): should return the line´s length
+   -  compute_slope(): should return the slope of the line from tje horizontal in deg.
+   -  compute_horizontal_cross(): should return if exists the intersection with x-axis
+   -  compute_vertical_cross(): should return if exists the intersection with y-axis
+
+      2. Redefine the class Rectangle, adding a new method of initialization using 4 Lines (composition at its best, a rectangle is compose of 4 lines).
+      3. **Optional:** Define a method called discretize_line() that creates an array on *n* equally spaced points in the line and assigned as a instance attribute.
+   
 2. **Restaurant scenario:** You want to design a program to calculate the bill for a customer's order in a restaurant.
 - Define a base class *MenuItem*: This class should have attributes like name, price, and a method to calculate the total price.
 - Create subclasses for different types of menu items: Inherit from *MenuItem* and define properties specific to each type (e.g., Beverage, Appetizer, MainCourse). 
@@ -562,3 +593,589 @@ order1.show_summary()
 [Código Completo sobre el Restaurante](Reto3.py)
 ### UML
 ![Diagrama UML sobre un sistema de restaurante](UML_Reto_3.drawio.png)
+# Reto 4 
+1. Include the class exercise in the repo.
+   **Ejercicio:**
+      1. Create a superclass called Shape(), which is the base of the classes Reactangle() and Square(), define the methods compute_area and compute_perimeter in Shape() and then using polymorphism redefine the methods properly in Rectangle and in Square.
+      2. Using the classes Point() and Line() define a new super-class Shape() with the following structure:
+```mermaid
+classDiagram
+    class Shape {
+        + vertices: list(Point)
+        + edges: list(Line)
+        + inner_angles: list(float)
+        + is_regular: bool
+        + compute_area(self)
+        + compute_perimeter(self)
+        + compute_inner_angles(self)
+    }
+
+    class Point {
+        + x: int
+        + y: int
+        + compute_distance(self, Point)
+    }
+
+    class Line {
+        + start_point: Point
+        + end_point: Point
+        + length: float
+    }
+
+    class Triangle {
+    }
+
+    class Isosceles{
+    }
+
+    class Equilateral{
+    }
+
+    class Scalene{
+    }
+
+    class TriRectangle{
+    }
+
+    class Rectangle{
+    }
+
+    class Square{
+    }
+
+    Shape *-- Line 
+    Shape *-- Point
+    Triangle --|> Shape
+    Isosceles --|> Triangle
+    Equilateral --|> Triangle
+    Scalene --|> Triangle
+    TriRectangle --|> Triangle
+    Rectangle --|> Shape
+    Square --|> Rectangle
+```
+Use Inheritance, Composition, Encapsulation and Polymorphism to define the classes. All attributes must have their respective setters and getters.
+
+2. **The restaurant revisted**
+ - Add setters and getters to all subclasses for menu item
+ - Override calculate_total_price() according to the order composition (e.g if the order includes a main course apply some disccount on beverages)
+ - Add the class Payment() following the class example.
+## Solución
+### Codigo del Ejercicio de clase.
+```python 
+import math
+
+class Point:
+    def __init__(self, x: int, y: int):
+        self._x = x
+        self._y = y
+
+    def get_x(self): return self._x
+    def set_x(self, value: int): self._x = value
+    def get_y(self): return self._y
+    def set_y(self, value: int): self._y = value
+
+    def compute_distance(self, other: 'Point') -> float:
+        dx = self._x - other.get_x()
+        dy = self._y - other.get_y()
+        return math.sqrt(dx**2 + dy**2)
+
+
+class Line:
+    def __init__(self, start_point: Point, end_point: Point):
+        self._start_point = start_point
+        self._end_point = end_point
+        self._length = self.compute_length()
+
+    def get_start_point(self): return self._start_point
+    def set_start_point(self, point: Point):
+        self._start_point = point
+        self._length = self.compute_length()
+
+    def get_end_point(self): return self._end_point
+    def set_end_point(self, point: Point):
+        self._end_point = point
+        self._length = self.compute_length()
+
+    def get_length(self): return self._length
+
+    def compute_length(self) -> float:
+        return self._start_point.compute_distance(self._end_point)
+
+
+class Shape:
+    def __init__(self, is_regular: bool, vertices: list[Point], edges: list[Line]):
+        self._is_regular = is_regular
+        self._vertices = vertices
+        self._edges = edges
+        self._inner_angles = []
+
+    def get_is_regular(self): return self._is_regular
+    def set_is_regular(self, value: bool): self._is_regular = value
+    def get_vertices(self): return self._vertices
+    def set_vertices(self, points: list[Point]): self._vertices = points
+    def get_edges(self): return self._edges
+    def set_edges(self, lines: list[Line]): self._edges = lines
+    def get_inner_angles(self): return self._inner_angles
+    def set_inner_angles(self, angles: list[float]): self._inner_angles = angles
+
+    def compute_area(self): raise NotImplementedError()
+    def compute_perimeter(self): return sum(edge.get_length() for edge in self._edges)
+    def compute_inner_angles(self): raise NotImplementedError()
+
+
+class Rectangle(Shape):
+    def __init__(self, vertices: list[Point]):
+        edges = [
+            Line(vertices[0], vertices[1]),
+            Line(vertices[1], vertices[2]),
+            Line(vertices[2], vertices[3]),
+            Line(vertices[3], vertices[0])
+        ]
+        super().__init__(is_regular=False, vertices=vertices, edges=edges)
+
+    def compute_area(self):
+        width = self._edges[0].get_length()
+        height = self._edges[1].get_length()
+        return width * height
+
+    def compute_inner_angles(self):
+        self._inner_angles = [90.0] * 4
+        return self._inner_angles
+
+    def __str__(self):
+        width = self._edges[0].get_length()
+        height = self._edges[1].get_length()
+        return (
+            f"Rectangle:\n"
+            f"- Regular: {self.get_is_regular()}\n"
+            f"- Width: {width:.2f}, Height: {height:.2f}\n"
+            f"- Perimeter: {self.compute_perimeter():.2f}\n"
+            f"- Area: {self.compute_area():.2f}\n"
+            f"- Inner Angles: {self.compute_inner_angles()}°"
+        )
+
+
+class Square(Rectangle):
+    def __init__(self, vertices: list[Point]):
+        super().__init__(vertices)
+        self.set_is_regular(True)
+
+    def compute_area(self):
+        side = self._edges[0].get_length()
+        return side ** 2
+
+    def __str__(self):
+        side = self._edges[0].get_length()
+        return (
+            f"Square:\n"
+            f"- Regular: {self.get_is_regular()}\n"
+            f"- Side Length: {side:.2f}\n"
+            f"- Perimeter: {self.compute_perimeter():.2f}\n"
+            f"- Area: {self.compute_area():.2f}\n"
+            f"- Inner Angles: {self.compute_inner_angles()}°"
+        )
+
+
+class Triangle(Shape):
+    def __init__(self, vertices: list[Point]):
+        edges = [
+            Line(vertices[0], vertices[1]),
+            Line(vertices[1], vertices[2]),
+            Line(vertices[2], vertices[0])
+        ]
+        super().__init__(is_regular=False, vertices=vertices, edges=edges)
+
+    def compute_area(self):
+        a = self._edges[0].get_length()
+        b = self._edges[1].get_length()
+        c = self._edges[2].get_length()
+        s = (a + b + c) / 2
+        return math.sqrt(s * (s - a) * (s - b) * (s - c))
+
+
+class EquilateralTriangle(Triangle):
+    def __init__(self, vertices: list[Point]):
+        super().__init__(vertices)
+        self.set_is_regular(True)
+
+    def compute_inner_angles(self):
+        self._inner_angles = [60.0, 60.0, 60.0]
+        return self._inner_angles
+
+    def __str__(self):
+        return (
+            f"Equilateral Triangle:\n"
+            f"- Regular: {self.get_is_regular()}\n"
+            f"- Perimeter: {self.compute_perimeter():.2f}\n"
+            f"- Area: {self.compute_area():.2f}\n"
+            f"- Inner Angles: {self.compute_inner_angles()}°"
+        )
+
+
+class IsoscelesTriangle(Triangle):
+    def __init__(self, vertices: list[Point]):
+        super().__init__(vertices)
+
+    def compute_inner_angles(self):
+        self._inner_angles = [70.0, 70.0, 40.0]
+        return self._inner_angles
+
+    def __str__(self):
+        return (
+            f"Isosceles Triangle:\n"
+            f"- Regular: {self.get_is_regular()}\n"
+            f"- Perimeter: {self.compute_perimeter():.2f}\n"
+            f"- Area: {self.compute_area():.2f}\n"
+            f"- Inner Angles: {self.compute_inner_angles()}°"
+        )
+
+
+class ScaleneTriangle(Triangle):
+    def __init__(self, vertices: list[Point]):
+        super().__init__(vertices)
+
+    def compute_inner_angles(self):
+        self._inner_angles = [50.0, 60.0, 70.0]
+        return self._inner_angles
+
+    def __str__(self):
+        return (
+            f"Scalene Triangle:\n"
+            f"- Regular: {self.get_is_regular()}\n"
+            f"- Perimeter: {self.compute_perimeter():.2f}\n"
+            f"- Area: {self.compute_area():.2f}\n"
+            f"- Inner Angles: {self.compute_inner_angles()}°"
+        )
+
+
+class RightTriangle(Triangle):
+    def __init__(self, vertices: list[Point]):
+        super().__init__(vertices)
+
+    def compute_inner_angles(self):
+        self._inner_angles = [90.0, 45.0, 45.0]
+        return self._inner_angles
+
+    def __str__(self):
+        return (
+            f"Right Triangle:\n"
+            f"- Regular: {self.get_is_regular()}\n"
+            f"- Perimeter: {self.compute_perimeter():.2f}\n"
+            f"- Area: {self.compute_area():.2f}\n"
+            f"- Inner Angles: {self.compute_inner_angles()}°"
+        )
+```
+- Ejemplo que crea un cuadrado y un triángulo equilátero. Cada figura se construye a partir de puntos y líneas, y luego se imprime su información.
+```python        
+
+if __name__ == "__main__":
+    # Create points for a square with side length 2
+    p1 = Point(0, 0)
+    p2 = Point(0, 2)
+    p3 = Point(2, 2)
+    p4 = Point(2, 0)
+    square = Square([p1, p2, p3, p4])
+
+    # Create points for an equilateral triangle with side length 2
+    t1 = Point(0, 0)
+    t2 = Point(2, 0)
+    t3 = Point(1, math.sqrt(3))  # height for equilateral triangle
+    triangle = EquilateralTriangle([t1, t2, t3])
+
+    # Print the square's information
+    print(square)
+    print("---------------------------------------------")
+
+    # Print the triangle's information
+    print(triangle)
+```
+[Codigo completo del ejercicio de clase](Ejercicio_Clase9.py)
+### Codigo del Restaurante con sus cambios.
+- Clases pasadas con *setters* y *getters*. 
+```python
+import math
+
+class MenuItem:
+    def __init__(self, name: str, price: float, description: float) -> None:
+        self._name = name
+        self._price = price
+        self._description = description
+
+    def get_name(self) -> str:
+        return self._name
+
+    def set_name(self, new_name: str) -> None:
+        self._name = new_name
+
+    def get_price(self) -> float:
+        return self._price
+
+    def set_price(self, new_price: float) -> None:
+        if new_price >= 0:
+            self._price = new_price
+
+    def get_description(self) -> float:
+        return self._description
+
+    def set_description(self, new_description: float) -> None:
+        self._description = new_description
+
+    def get_total_price(self) -> float:
+        return self._price
+
+    def show_info(self) -> str:
+        return f"{self._name}: ${self._price:.2f} - {self._description}"
+
+
+class MainCourse(MenuItem):
+    def __init__(self, name, price, description, vegetarian, side_dish, spice_level):
+        super().__init__(name, price, description)
+        self._vegetarian = vegetarian
+        self._side_dish = side_dish
+        self._spice_level = spice_level
+
+    def is_spicy(self):
+        return self._spice_level.lower() in ["medium", "high"]
+
+    def get_vegetarian(self):
+        return self._vegetarian
+
+    def set_vegetarian(self, value):
+        self._vegetarian = value
+
+    def get_side_dish(self):
+        return self._side_dish
+
+    def set_side_dish(self, new):
+        self._side_dish = new
+
+    def get_spice_level(self):
+        return self._spice_level
+
+    def set_spice_level(self, level):
+        self._spice_level = level
+
+
+class Dessert(MenuItem):
+    def __init__(self, name, price, description, sugar_free, gluten_free, type):
+        super().__init__(name, price, description)
+        self._sugar_free = sugar_free
+        self._gluten_free = gluten_free
+        self._type = type
+
+    def is_diabetic_friendly(self):
+        return self._sugar_free
+
+    def get_type(self):
+        return self._type
+
+    def set_type(self, new_type):
+        self._type = new_type
+
+    def get_sugar_free(self):
+        return self._sugar_free
+
+    def set_sugar_free(self, value):
+        self._sugar_free = value
+
+    def get_gluten_free(self):
+        return self._gluten_free
+
+    def set_gluten_free(self, value):
+        self._gluten_free = value
+
+    def show_restrictions(self):
+        restrictions = []
+        if self._sugar_free:
+            restrictions.append("sugar-free")
+        if self._gluten_free:
+            restrictions.append("gluten-free")
+        return ", ".join(restrictions)
+
+
+class Drink(MenuItem):
+    def __init__(self, name, price, description, size, ice, alcoholic, fizzy):
+        super().__init__(name, price, description)
+        self._size = size
+        self._ice = ice
+        self._alcoholic = alcoholic
+        self._fizzy = fizzy
+
+    def is_large(self):
+        return self._size.lower() == "large"
+
+    def get_size(self):
+        return self._size
+
+    def set_size(self, new_size):
+        self._size = new_size
+
+    def get_ice(self):
+        return self._ice
+
+    def set_ice(self, value):
+        self._ice = value
+
+    def get_alcoholic(self):
+        return self._alcoholic
+
+    def set_alcoholic(self, value):
+        self._alcoholic = value
+
+    def get_fizzy(self):
+        return self._fizzy
+
+    def set_fizzy(self, value):
+        self._fizzy = value
+
+
+class Appetizer(MenuItem):
+    def __init__(self, name, price, description, temperature, portions, large):
+        super().__init__(name, price, description)
+        self._temperature = temperature
+        self._portions = portions
+        self._large = large
+
+    def is_hot(self):
+        return self._temperature.lower() == "hot"
+
+    def get_temperature(self):
+        return self._temperature
+
+    def set_temperature(self, new_temp):
+        self._temperature = new_temp
+
+    def get_portions(self):
+        return self._portions
+
+    def set_portions(self, quantity):
+        self._portions = quantity
+
+    def get_large(self):
+        return self._large
+
+    def set_large(self, value):
+        self._large = value
+
+
+class Soup(MenuItem):
+    def __init__(self, name, price, description, soup_type, size, vegetarian):
+        super().__init__(name, price, description)
+        self._soup_type = soup_type
+        self._size = size
+        self._vegetarian = vegetarian
+
+    def is_hot(self):
+        return True
+
+    def get_size(self):
+        return self._size
+
+    def set_size(self, new_size):
+        self._size = new_size
+
+    def get_soup_type(self):
+        return self._soup_type
+
+    def set_soup_type(self, new_type):
+        self._soup_type = new_type
+
+    def get_vegetarian(self):
+        return self._vegetarian
+
+    def set_vegetarian(self, value):
+        self._vegetarian = value
+
+    def side_suggestion(self):
+        return "Artisan bread"
+
+
+class Combo(MenuItem):
+    def __init__(self, name, price, description, included_items, includes_drink, combo_price):
+        super().__init__(name, price, description)
+        self._included_items = included_items
+        self._includes_drink = includes_drink
+        self._combo_price = combo_price
+
+    def add_item(self, new_item):
+        self._included_items.append(new_item)
+
+    def includes_dessert(self):
+        return any("dessert" in item.lower() for item in self._included_items)
+
+    def show_items(self):
+        return ", ".join(self._included_items)
+
+    def get_combo_price(self):
+        return self._combo_price
+
+    def set_combo_price(self, new_price):
+        self._combo_price = new_price
+
+
+class Order:
+    def __init__(self, date, status):
+        self.items = []
+        self.date = date
+        self.status = status
+
+    def add_item(self, item):
+        self.items.append(item)
+
+    def calculate_total(self):
+        has_main = any(isinstance(item, MainCourse) for item in self.items)
+        total = 0.0
+        for item in self.items:
+            price = item.get_total_price()
+            if has_main and isinstance(item, Drink):
+                price *= 0.9  # 10% discount
+            total += price
+        return total
+
+    def show_summary(self):
+        print(f"\n--- ORDER SUMMARY ---")
+        print(f"Date: {self.date}")
+        print(f"Status: {self.status}")
+        print("Items:")
+        for item in self.items:
+            print(f"- {item.show_info()}")
+        print(f"Total: ${self.calculate_total():,.2f} COP")
+```
+- Clase *Payment()*
+```python
+class Payment:
+    def __init__(self, amount, method):
+        self.amount = amount
+        self.method = method
+        self.status = "Pending"
+
+    def process_payment(self):
+        self.status = "Completed"
+
+    def show_receipt(self):
+        print("\n--- PAYMENT RECEIPT ---")
+        print(f"Amount: ${self.amount:,.2f} COP")
+        print(f"Method: {self.method}")
+        print(f"Status: {self.status}")
+```
+- Ejemplo de un Pedido
+```python
+# Create an order
+order1 = Order("2025-10-10", "Pending")
+
+# Add items from your menu
+order1.add_item(MainCourse("Bandeja Paisa", 28000.0, 1.0, False, "rice and beans", "medium"))
+order1.add_item(Drink("Craft Beer", 14500.0, 1.0, "large", False, True, False))
+order1.add_item(Dessert("Vanilla Ice Cream", 11000.0, 1.0, False, False, "ice cream"))
+
+# Show order summary
+order1.show_summary()
+
+# Process payment
+```
+[Codigo del Restaurante completo](Reto4.py)
+total_amount = order1.calculate_total()
+payment1 = Payment(total_amount, "Credit Card")
+payment1.process_payment()
+payment1.show_receipt()
+```
