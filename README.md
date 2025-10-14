@@ -1172,10 +1172,9 @@ order1.add_item(Dessert("Vanilla Ice Cream", 11000.0, 1.0, False, False, "ice cr
 order1.show_summary()
 
 # Process payment
-```
-[Codigo del Restaurante completo](Reto4.py)
 total_amount = order1.calculate_total()
 payment1 = Payment(total_amount, "Credit Card")
 payment1.process_payment()
 payment1.show_receipt()
 ```
+[Codigo del Restaurante completo](Reto4.py)
