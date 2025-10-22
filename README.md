@@ -169,7 +169,7 @@ En este punto se quería hacer un programa que detectara palabras que son anagra
 # Reto 2
 Elija un problema de la vida real (sistema de gestión de biblioteca, negocio de compra-venta, automóvil, etc) que se pueda modelar a través de objetos y clases. Plantee las relaciones de clases, composiciones, propiedades y comportamientos del sistema en uno mas diagramas tipo UML.
 ### Solución
-![Diagrama UML sobre un sistema de reservas de vuelo](Reto_2.drawio.png)
+![Diagrama UML sobre un sistema de reservas de vuelo](Reto2/Reto_2.drawio.png)
  **Descripción**
 - Las flechas vacias, significan que Empleado y Pasajero son una herencia de Persona y Vuelo es herencia de Avión.
 - Los rombos, significan que a los que estan apuntando es una composición.
@@ -362,7 +362,7 @@ else:
 
 rect.show_info()
 ```
-[Codigo Ejercicio de Clase](Ejercicio_Clase8.py)
+[Codigo Ejercicio de Clase](Ejercicios/Ejercicio_Clase8.py)
 ### Código del Restaurante
 - Clase *MenuItem* y sus diferentes subclases.
 
@@ -590,9 +590,9 @@ order1.add_item(dessert2)
 # Show summary
 order1.show_summary()
 ```
-[Código Completo sobre el Restaurante](Reto3.py)
+[Código Completo sobre el Restaurante](Reto3/Reto3.py)
 ### UML
-![Diagrama UML sobre un sistema de restaurante](UML_Reto_3.drawio.png)
+![Diagrama UML sobre un sistema de restaurante](Reto3/UML_Reto_3.drawio.png)
 # Reto 4 
 1. Include the class exercise in the repo.
    **Ejercicio:**
@@ -889,7 +889,7 @@ if __name__ == "__main__":
     # Print the triangle's information
     print(triangle)
 ```
-[Codigo completo del ejercicio de clase](Ejercicio_Clase9.py)
+[Codigo completo del ejercicio de clase](Ejercicios/Ejercicio_Clase9.py)
 ### Codigo del Restaurante con sus cambios.
 - Clases pasadas con *setters* y *getters*. 
 ```python
@@ -1177,4 +1177,4 @@ payment1 = Payment(total_amount, "Credit Card")
 payment1.process_payment()
 payment1.show_receipt()
 ```
-[Codigo del Restaurante completo](Reto4.py)
+[Codigo del Restaurante completo](Reto4/Reto4.py)
